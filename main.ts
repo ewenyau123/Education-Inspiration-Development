@@ -1,4 +1,4 @@
-namespace IFS_IOT {
+namespace SmartClassroom {
     enum Cmd {
         None,
         ConnectWifi,
@@ -28,7 +28,7 @@ namespace IFS_IOT {
     let topic_def: string = ""
     const mqttSubscribeHandlers: { [topic: string]: (message: string) => void } = {}
     const mqttSubscribeQos: { [topic: string]: number } = {}
-    let mqtthost_def = "IFS"
+    let mqtthost_def = "SmartClassroom"
 
     let serialCnt = 0
     let recvString = ""
@@ -159,7 +159,10 @@ namespace IFS_IOT {
      * Set  MQTT client
      */
     //% subcategory=MQTT weight=30
-    //% blockId=initMQTT block="Set MQTT connection config|scheme: %scheme clientID: %clientID username: %username password: %password"
+    //% blockId=initMQTT block="Set MQTT connection with SmartClassroom Hub config|scheme: %scheme StudentID(Class_ID): %clientID username: %username password: %password"
+    //% clientID.defl = 6A13
+    //% username.defl = 6A13
+    //% password.defl = 6A13abcd
     export function setMQTT(scheme: SchemeList, clientID: string, username: string, password: string): void {
         sendAT(`AT+MQTTUSERCFG=0,${scheme},"${clientID}","${username}","${password}",0,0,""`, 1000)
     }
@@ -168,7 +171,8 @@ namespace IFS_IOT {
      * Connect to MQTT broker
      */
     //% subcategory=MQTT weight=25
-    //% blockId=connectMQTT block="connect SmartClassroom Server IP Address: %host port: %port reconnect: $reconnect"
+    //% blockId=connectMQTT block="connect SmartClassroom Hub IP Address: %host port: %port reconnect: $reconnect"
+    //% host.defl=smartclassroom.lan
     export function connectMQTT(host: string, port: number, reconnect: boolean): void {
         mqtthost_def = host
         const rec = reconnect ? 0 : 1
@@ -184,7 +188,7 @@ namespace IFS_IOT {
     /*
      * Check if ESP8266 successfully connected to mqtt broker
      */
-    //% block="Smart Classroom Hub is connected"
+    //% block="SmartClassroom Hub is connected"
     //% subcategory="MQTT" weight=24
     export function isMqttBrokerConnected() {
         return mqttBrokerConnected
@@ -206,7 +210,7 @@ namespace IFS_IOT {
      * disconnect MQTT broker
      */
     //% subcategory=MQTT weight=15
-    //% blockId=breakMQTT block="Disconnect from Smart Classroom Hub"
+    //% blockId=breakMQTT block="Disconnect from SmartClassroom Hub"
     export function breakMQTT(): void {
         sendAT("AT+MQTTCLEAN=0", 1000)
     }
