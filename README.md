@@ -15,3 +15,121 @@ This extension is targeted for [ESP8266](https://en.wikipedia.org/wiki/ESP8266) 
 ## Example with Sensors
 
 ### Environment Sensor dht20
+Prepare dht20 Sensor and connect correctly with Inspiration Board.
+
+Add `Grove` Extension for reading the sensor dht20.
+
+Find and arrange sensor dht20 blocks in editor. 
+
+```blocks
+input.onPinPressed(TouchPin.P0, function () {
+    SmartClassroom.publishMqttMessage("" + grove.aht20ReadTemperatureC(), "smartclassroom/demo", SmartClassroom.QosList.Qos0)
+})
+input.onPinPressed(TouchPin.P2, function () {
+    SmartClassroom.publishMqttMessage("" + grove.aht20ReadHumidity(), "smartclassroom/demo", SmartClassroom.QosList.Qos0)
+})
+input.onPinPressed(TouchPin.P1, function () {
+    SmartClassroom.publishMqttMessage("" + grove.aht20ReadTemperatureF(), "smartclassroom/demo", SmartClassroom.QosList.Qos0)
+})
+SmartClassroom.connectWifi("your_ssid", "your_pwd")
+SmartClassroom.setMQTT(
+    SmartClassroom.SchemeList.TCP,
+    "6A13",
+    "6A13",
+    "6A13abcd"
+)
+SmartClassroom.connectMQTT("smartclassroom.lan", 0, false)
+pins.setPull(DigitalPin.P0, PinPullMode.PullUp)
+pins.setPull(DigitalPin.P1, PinPullMode.PullUp)
+pins.setPull(DigitalPin.P2, PinPullMode.PullUp)
+```
+
+### LED Control
+Add `Neopixel` Extension for displaying different color on the board.
+
+Find and arrange sensor dht20 blocks. 
+
+Define the number of LEDs.
+
+#### ColorLoop Mode
+```blocks
+pins.setPull(DigitalPin.P16, PinPullMode.PullNone)
+let no_of_LEDs = 3
+let strip = neopixel.create(DigitalPin.P16, no_of_LEDs, NeoPixelMode.RGB_RGB)
+strip.setBrightness(255)
+basic.forever(function () {
+    strip.clear()
+    strip.setPixelColor(0, NeoPixelColors.Red)
+    strip.setPixelColor(1, NeoPixelColors.Blue)
+    strip.setPixelColor(2, NeoPixelColors.Green)
+    strip.show()
+    basic.pause(500)
+    strip.clear()
+    strip.setPixelColor(0, NeoPixelColors.Green)
+    strip.setPixelColor(1, NeoPixelColors.Red)
+    strip.setPixelColor(2, NeoPixelColors.Blue)
+    strip.show()
+    basic.pause(500)
+    strip.clear()
+    strip.setPixelColor(0, NeoPixelColors.Blue)
+    strip.setPixelColor(1, NeoPixelColors.Green)
+    strip.setPixelColor(2, NeoPixelColors.Red)
+    strip.show()
+    basic.pause(500)
+})
+```
+
+#### Colorful Mode
+```blocks
+pins.setPull(DigitalPin.P16, PinPullMode.PullNone)
+let no_of_LEDs = 3
+let strip = neopixel.create(DigitalPin.P16, no_of_LEDs, NeoPixelMode.RGB_RGB)
+strip.setBrightness(255)
+basic.forever(function () {
+    strip.clear()
+    strip.setPixelColor(0, NeoPixelColors.Red)
+    strip.setPixelColor(1, NeoPixelColors.Red)
+    strip.setPixelColor(2, NeoPixelColors.Red)
+    strip.show()
+    basic.pause(500)
+    strip.clear()
+    strip.setPixelColor(0, NeoPixelColors.Green)
+    strip.setPixelColor(1, NeoPixelColors.Green)
+    strip.setPixelColor(2, NeoPixelColors.Green)
+    strip.show()
+    basic.pause(500)
+    strip.clear()
+    strip.setPixelColor(0, NeoPixelColors.Blue)
+    strip.setPixelColor(1, NeoPixelColors.Blue)
+    strip.setPixelColor(2, NeoPixelColors.Blue)
+    strip.show()
+    basic.pause(500)
+})
+```
+
+### OLED Monitor
+Prepare the OLED Monitor 128X64 and connect correctly with Inspiration Board
+
+Add `OLED12864_I2C` Extension for displaying String on the OLED Monitor.
+
+Find and arrange OLED12864_I2C Monitor blocks. 
+
+```blocks
+OLED12864_I2C.init(60)
+OLED12864_I2C.zoom(false)
+OLED12864_I2C.invert(false)
+OLED12864_I2C.draw()
+OLED12864_I2C.rect(
+    5,
+    5,
+    125,
+    62,
+    1
+)
+OLED12864_I2C.showString(
+    3,
+    3,
+    "Hello!",
+    1
+)
+```

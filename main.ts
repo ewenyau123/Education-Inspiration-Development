@@ -160,9 +160,9 @@ namespace SmartClassroom {
      */
     //% subcategory=MQTT weight=30
     //% blockId=initMQTT block="Set MQTT connection with SmartClassroom Hub config|scheme: %scheme StudentID(Class_ID): %clientID username: %username password: %password"
-    //% clientID.defl = 6A13
-    //% username.defl = 6A13
-    //% password.defl = 6A13abcd
+    //% clientID.defl=6A13
+    //% username.defl=6A13
+    //% password.defl=6A13abcd
     export function setMQTT(scheme: SchemeList, clientID: string, username: string, password: string): void {
         sendAT(`AT+MQTTUSERCFG=0,${scheme},"${clientID}","${username}","${password}",0,0,""`, 1000)
     }
