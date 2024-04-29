@@ -4,13 +4,26 @@ This extension is modified from [elecfreaks/pxt-esp8266iot](https://github.com/e
 
 This extension is targeted for [ESP8266](https://en.wikipedia.org/wiki/ESP8266) Wifi modules and Inspiration Board. Therefore, students can connect the SmartClassroom Hub and Control the devices through MQTT.
 
+![](https://github.com/ewenyau123/Education-Inspiration-Development/blob/master/Inspiration_board.png)
+
+| Extension Element | MicroBit Pin |
+| ----------------- | ------------ |
+| OLE | 19,20 pin   |
+| RGB LED x3        | P16          |
+| WiFi Module       | P8-RX,P12-TX |
+| Push Button x3    | P0, P1, P2   |
+| GPIO PIN Header   | 1st row: P1-7|
+|                   | 2nd row: P9-11, 13-16|
+| I2C Pin Sockets   | 19,20 pin    |
+
 ## Basic Usage
-1. Create a new Project on [Microsoft Makecode/microbit](https://pxt.microbit.org)
-2. Click `add Extension`
-3. Click `import file`
-4. Select `IFS_IOT.hex`
-5. Use `SmartClassroom` drawer in extension side bar to edit the blocks
-6. Click `Download` to download the project to your micro:bit Board 
+1. Download `IFS_IOT.hex`
+2. Create a new Project on [Microsoft Makecode/microbit](https://pxt.microbit.org)
+3. Click `add Extension`
+4. Click `import file`
+5. Select `IFS_IOT.hex`
+6. Use `SmartClassroom` drawer in extension side bar to edit the blocks
+7. Click `Download` to download the project to your micro:bit Board  
 
 ## Example with Sensors
 
